@@ -1,10 +1,13 @@
 const express = require("express");
-const eventRouter = require("./routes/eventRoutes");
+const EventService = require("./services/EventService");
 const app = express();
 
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
-app.use("/api/event/", eventRouter);
+app.get("/event/lastest", EventService.getEventsLatest);
+app.get("/event/filter", EventService.getEventsAndFilter);
+app.post("/event/create", EventService.createEvent);
+
 
 module.exports = app;
